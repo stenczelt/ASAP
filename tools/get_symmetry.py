@@ -22,7 +22,7 @@ def show_symmetry(symmetry):
 def show_lattice(lattice):
     print("Basis vectors:")
     for vec, axis in zip(lattice, ("a", "b", "c")):
-        print("%s %10.5f %10.5f %10.5f" % (tuple(axis,) + tuple(vec)))
+        print("%s %10.5f %10.5f %10.5f" % (tuple(axis, ) + tuple(vec)))
 
 
 def show_cell(lattice, positions, numbers):
@@ -33,32 +33,30 @@ def show_cell(lattice, positions, numbers):
 
 
 def main(fxyz, prefix, verbose):
-
     # read frames
     if fxyz != 'none':
         frames = read(fxyz, ':')
         nframes = len(frames)
-        print("read xyz file:", fxyz, ", a total of",nframes, "frames")
+        print("read xyz file:", fxyz, ", a total of", nframes, "frames")
 
     standardized_frames = []
 
     for frame in frames:
         print(spglib.get_spacegroup(frame, symprec=1e-1))  # spglib.get_symmetry(frame, symprec=1e-1))
         lattice, scaled_positions, numbers = spglib.standardize_cell(frame,
-                                                                to_primitive=1,
-                                                                no_idealize=1,
-                                                                symprec=1e-2)
+                                                                     to_primitive=1,
+                                                                     no_idealize=1,
+                                                                     symprec=1e-2)
         if verbose:
             show_cell(lattice, scaled_positions, numbers)
         # output
         frtemp = atom(numbers=numbers, cell=lattice, scaled_positions=scaled_positions, pbc=frame.get_pbc())
         standardized_frames.append(frtemp)
 
-    write(prefix+'-standardized.xyz', standardized_frames)
+    write(prefix + '-standardized.xyz', standardized_frames)
 
 
 if __name__ == '__main__':
-
     parser = argparse.ArgumentParser()
     parser.add_argument('-fxyz', type=str, required=True, help='Location of xyz file')
     parser.add_argument('--prefix', type=str, default='output', help='Filename prefix')

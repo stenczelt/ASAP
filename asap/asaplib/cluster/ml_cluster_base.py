@@ -15,7 +15,7 @@ class ClusterBase(ClusterMixin):
     def get_cluster_labels(self, index=[]):
         pass
 
-    def get_params(self,deep=True):
+    def get_params(self, deep=True):
         pass
 
     def get_name(self):

@@ -13,20 +13,21 @@ def get_r2(y_pred, y_true):
 
 
 def get_mae(ypred, y):
-    return np.mean(np.abs(ypred-y))
+    return np.mean(np.abs(ypred - y))
 
 
 def get_rmse(ypred, y):
-    return np.sqrt(np.mean((ypred-y)**2))
+    return np.sqrt(np.mean((ypred - y) ** 2))
 
 
 def get_sup(ypred, y):
-    return np.amax(np.abs((ypred-y)))
+    return np.amax(np.abs((ypred - y)))
 
 
 def get_spearman(ypred, y):
-    corr,_ = spearmanr(ypred, y)
+    corr, _ = spearmanr(ypred, y)
     return corr
+
 
 score_func = dict(
     MAE=get_mae,
@@ -39,6 +40,6 @@ score_func = dict(
 
 def get_score(ypred, y):
     scores = {}
-    for k,func in score_func.items():
+    for k, func in score_func.items():
         scores[k] = func(ypred, y)
     return scores

@@ -3,7 +3,7 @@ import argparse
 import os, sys
 import matplotlib.pyplot as plt
 import numpy as np
-from ase.io import read,write
+from ase.io import read, write
 from dscribe.descriptors import SOAP
 from asaplib.io import str2bool
 
@@ -25,8 +25,8 @@ def main(fxyz, dictxyz, prefix, output, peratom, soap_rcut, soap_g, soap_n, soap
     soap_l: int giving the maximum angular label. Must be less than or equal to 9
     soap_periodic: string (True or False) indicating whether the system is periodic
     """
-    foutput = prefix+"-n"+str(soap_n)+"-l"+str(soap_l)+"-c"+str(soap_rcut)+"-g"+str(soap_g)
-    desc_name = "SOAP"+"-n"+str(soap_n)+"-l"+str(soap_l)+"-c"+str(soap_rcut)+"-g"+str(soap_g)
+    foutput = prefix + "-n" + str(soap_n) + "-l" + str(soap_l) + "-c" + str(soap_rcut) + "-g" + str(soap_g)
+    desc_name = "SOAP" + "-n" + str(soap_n) + "-l" + str(soap_l) + "-c" + str(soap_rcut) + "-g" + str(soap_g)
     soap_periodic = bool(soap_periodic)
     peratom = bool(peratom)
     fframes = []
@@ -55,11 +55,11 @@ def main(fxyz, dictxyz, prefix, output, peratom, soap_rcut, soap_g, soap_n, soap
     print("a total of", nframes, "frames, with elements: ", global_species)
 
     soap_desc_atomic = SOAP(species=global_species, rcut=soap_rcut, nmax=soap_n, lmax=soap_l,
-                         sigma=soap_g, rbf="gto", crossover=False, average=False, periodic=soap_periodic)
+                            sigma=soap_g, rbf="gto", crossover=False, average=False, periodic=soap_periodic)
 
     # prepare for the output
-    if os.path.isfile(foutput+".xyz"): os.rename(foutput+".xyz","bck."+foutput+".xyz")
-    if os.path.isfile(foutput+".desc"): os.rename(foutput+".desc","bck."+foutput+".desc")
+    if os.path.isfile(foutput + ".xyz"): os.rename(foutput + ".xyz", "bck." + foutput + ".xyz")
+    if os.path.isfile(foutput + ".desc"): os.rename(foutput + ".desc", "bck." + foutput + ".desc")
 
     for i, frame in enumerate(frames):
         fnow = soap_desc_atomic.create(frame, n_jobs=8)
@@ -69,16 +69,17 @@ def main(fxyz, dictxyz, prefix, output, peratom, soap_rcut, soap_g, soap_n, soap
 
         # save
         if output == 'matrix':
-            with open(foutput+".desc", "ab") as f:
+            with open(foutput + ".desc", "ab") as f:
                 np.savetxt(f, frame.info[desc_name])
         elif output == 'xyz':
             # output per-atom info
             if peratom:
                 frame.new_array(desc_name, fnow)
             # write xyze
-            write(foutput+".xyz", frame, append=True)
+            write(foutput + ".xyz", frame, append=True)
         else:
             raise ValueError('Cannot find the output format')
+
 
 if __name__ == '__main__':
 
@@ -97,10 +98,11 @@ if __name__ == '__main__':
     parser.add_argument('--periodic', type=str2bool, nargs='?', const=True, default=True,
                         help='Is the system periodic (True/False)?')
 
-    if len(sys.argv)==1:
+    if len(sys.argv) == 1:
         parser.print_help(sys.stderr)
         sys.exit(1)
     args = parser.parse_args()
     args = parser.parse_args()
 
-    main(args.fxyz, args.fdict, args.prefix, args.output, args.peratom, args.rcut, args.g, args.n, args.l, args.periodic)
+    main(args.fxyz, args.fdict, args.prefix, args.output, args.peratom, args.rcut, args.g, args.n, args.l,
+         args.periodic)

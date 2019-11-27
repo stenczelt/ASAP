@@ -16,7 +16,7 @@ density based clustering algorithms
 
 class DBCluster(ClusterBase):
     _pairwise = True
-    
+
     def __init__(self, trainer):
         self.trainer = trainer
         # cluster labels
@@ -25,7 +25,7 @@ class DBCluster(ClusterBase):
         self.n_clusters = None
         # number of noise points
         self.n_noise = None
-    
+
     def fit(self, dmatrix, rho=None):
 
         '''fit the clustering model, assume input of NxN distance matrix or Nxm coordinates'''
@@ -35,12 +35,12 @@ class DBCluster(ClusterBase):
         self.n_noise = list(self.labels).count(-1)
         print('Estimated number of clusters: %d' % self.n_clusters)
         print('Estimated number of noise points: %d' % self.n_noise)
-        
+
         if (np.shape(dmatrix)[0] == np.shape(dmatrix)[1]):
-            silscore = silhouette_score(dmatrix, self.labels,metric="precomputed")
+            silscore = silhouette_score(dmatrix, self.labels, metric="precomputed")
         else:
-            silscore = silhouette_score(dmatrix, self.labels,metric="euclidean")
-        print("Silhouette Coefficient: %0.3f" %silscore )
+            silscore = silhouette_score(dmatrix, self.labels, metric="euclidean")
+        print("Silhouette Coefficient: %0.3f" % silscore)
 
     def get_cluster_labels(self, index=[]):
         '''return the label of the samples in the list of index'''
@@ -58,12 +58,11 @@ class DBCluster(ClusterBase):
     def pack(self):
         '''return all the info'''
         state = dict(trainer=self.trainer, trainer_params=self.trainer.pack(),
-                 labels=self.labels, n_clusters=self.n_clusters, n_noise=self.n_noise)
+                     labels=self.labels, n_clusters=self.n_clusters, n_noise=self.n_noise)
         return state
 
 
 class sklearn_DB(FitClusterBase):
-
     """
     https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html
     eps : float, optional
@@ -91,8 +90,8 @@ class sklearn_DB(FitClusterBase):
         self.min_samples = min_samples
         self.db = None
 
-    def fit(self, dmatrix, rho = None):
-        self.db = DBSCAN(eps=self.eps, min_samples=self.min_samples,metric=self.metric).fit(dmatrix)
+    def fit(self, dmatrix, rho=None):
+        self.db = DBSCAN(eps=self.eps, min_samples=self.min_samples, metric=self.metric).fit(dmatrix)
         return self.db.labels_
 
     def pack(self):
@@ -110,7 +109,7 @@ class LAIO_DB(FitClusterBase):
     """
 
     _pairwise = True
-    
+
     def __init__(self, deltamin=-1, rhomin=-1):
         self.deltamin = deltamin
         self.rhomin = rhomin
@@ -121,23 +120,23 @@ class LAIO_DB(FitClusterBase):
             raise ValueError('for fdb it is better to compute kernel density first')
 
         delta, nneigh = self.estimate_delta(dmatrix, rho)
-        
+
         # I'll think about this!!!
         if self.rhomin < 0:
-            self.rhomin = 0.2*np.mean(rho)+0.8*np.min(rho)
+            self.rhomin = 0.2 * np.mean(rho) + 0.8 * np.min(rho)
         if self.deltamin < 0:
             self.deltamin = np.mean(delta)
 
         ###
         plt.scatter(rho, delta)
         plt.plot([min(rho), max(rho)], [self.deltamin, self.deltamin], c='red')
-        plt.plot([self.rhomin,self.rhomin], [min(delta),max(delta)], c='red')
+        plt.plot([self.rhomin, self.rhomin], [min(delta), max(delta)], c='red')
         plt.xlabel('rho')
         plt.ylabel('delta')
         plt.show()
         ###
         nclust = 0
-        cl = np.zeros(len(rho), dtype='int')-1
+        cl = np.zeros(len(rho), dtype='int') - 1
         for i in range(len(rho)):
             if rho[i] > self.rhomin and delta[i] > self.deltamin:
                 nclust += 1
@@ -152,7 +151,7 @@ class LAIO_DB(FitClusterBase):
         return cl
 
     def estimate_delta(self, dist, rho):
-        delta = (rho*0.0).copy()
+        delta = (rho * 0.0).copy()
         nneigh = np.ones(len(delta), dtype='int')
         for i in range(len(rho)):
             js = np.where(rho > rho[i])[0]

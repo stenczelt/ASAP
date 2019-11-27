@@ -25,7 +25,7 @@ def main(fmat, fxyz, ftags, fcolor, colorscol, prefix, output, peratom, keepraw,
 
     if output == 'xyz' and fxyz == 'none':
         raise ValueError('Need input xyz in order to output xyz')
-
+    desc = []
     # try to read the xyz file
     if fxyz != 'none':
         try:
@@ -76,6 +76,7 @@ def main(fmat, fxyz, ftags, fcolor, colorscol, prefix, output, peratom, keepraw,
     if (scale):
         from sklearn.preprocessing import StandardScaler
         scaler = StandardScaler()
+        print('DEBUG: {}'.format(desc.shape))
         print(scaler.fit(desc))
         desc = scaler.transform(desc)  # normalizing the features
 
