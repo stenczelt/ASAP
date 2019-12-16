@@ -1,5 +1,4 @@
 import numpy as np
-import scipy.linalg as salg
 import scipy.sparse.linalg as spalg
 
 """

@@ -1,6 +1,6 @@
-import numpy as np
-import scipy.linalg as salg
 import copy
+
+import numpy as np
 
 
 def normalizekernel(kernel):

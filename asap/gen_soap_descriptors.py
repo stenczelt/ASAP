@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 import argparse
-import os, sys
-import matplotlib.pyplot as plt
+import os
+import sys
+
 import numpy as np
+from asaplib.io import str2bool
 from ase.io import read, write
 from dscribe.descriptors import SOAP
-from asaplib.io import str2bool
 
 
 def main(fxyz, dictxyz, prefix, output, peratom, soap_rcut, soap_g, soap_n, soap_l, soap_periodic):

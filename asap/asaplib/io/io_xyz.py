@@ -1,5 +1,6 @@
-import numpy as np
 import math
+
+import numpy as np
 
 zmap = {"H": 1, "He": 2, "Li": 3, "Be": 4, "B": 5, "C": 6, "N": 7, "O": 8, "F": 9, "Ne": 10, "Na": 11, "Mg": 12,
         "Al": 13, "Si": 14, "P": 15, "S": 16, "Cl": 17, "Ar": 18, "K": 19, "Ca": 20, "Sc": 21, "Ti": 22, "V": 23,
@@ -51,7 +52,7 @@ def write_ipixyz(outfile, cell, names, q):
     # write
     outfile.write(
         "%d\n# CELL(abcABC):     %4.8f     %4.8f     %4.8f     %4.5f     %4.5f     %4.5f   cell{angstrom}  Traj: positions{angstrom}\n" % (
-        natom, supercell[0], supercell[1], supercell[2], angles[0], angles[1], angles[2]))
+            natom, supercell[0], supercell[1], supercell[2], angles[0], angles[1], angles[2]))
     for i, qi in enumerate(q):
         # print (names[i],q[i*3],q[i*3+1],q[i*3+2])
         outfile.write("%s     %4.8f     %4.8f     %4.8f\n" % (names[i], qi[0], qi[1], qi[2]))

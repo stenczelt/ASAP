@@ -3,9 +3,9 @@ I adapt some of the suff from:
 Copyright 2017 Alexandre Day
 '''
 
+import matplotlib.patheffects as PathEffects
 import numpy as np
 from matplotlib import pyplot as plt
-import matplotlib.patheffects as PathEffects
 
 from .plot_colors import COLOR_PALETTE
 

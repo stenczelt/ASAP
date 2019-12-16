@@ -1,16 +1,16 @@
 #!/usr/bin/python3
 
-import numpy as np
-import sys, argparse
+import argparse
+import sys
+
 import matplotlib.pyplot as plt
-from matplotlib import cm
-from asaplib.pca import kpca
+import numpy as np
+from asaplib.cluster import DBCluster, sklearn_DB, LAIO_DB
+from asaplib.io import str2bool
 from asaplib.kde import KDE
 from asaplib.kernel import kerneltodis
-from asaplib.cluster import get_cluster_size, get_cluster_properties
-from asaplib.cluster import DBCluster, sklearn_DB, LAIO_DB
+from asaplib.pca import kpca
 from asaplib.plot import plot_styles
-from asaplib.io import str2bool
 
 
 def main(fmat, kmat, ftags, prefix, fcolor, dimension, pc1, pc2, algorithm, adtext):

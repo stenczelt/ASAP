@@ -2,13 +2,13 @@
 
 import argparse
 
-from asaplib.compressor import fps, kernel_random_split
+import matplotlib.pyplot as plt
+import numpy as np
 from asaplib.compressor import exponential_split, LCSplit, ShuffleSplit
+from asaplib.compressor import fps, kernel_random_split
 from asaplib.fit import KRRSparse
 from asaplib.fit import get_score
 from asaplib.plot import plot_styles
-import matplotlib.pyplot as plt
-import numpy as np
 
 
 def main(fmat, fy, prefix, test_ratio, jitter, n_sparse, sigma):

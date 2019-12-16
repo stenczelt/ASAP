@@ -2,12 +2,11 @@
 
 import argparse
 
-import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import cm
+import numpy as np
+from asaplib.io import str2bool
 from asaplib.kde import KDE
 from asaplib.plot import plot_styles
-from asaplib.io import str2bool
 
 
 def main(fmat, ftags, prefix, dimension, pc1, pc2, adtext):

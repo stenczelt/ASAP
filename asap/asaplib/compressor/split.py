@@ -1,14 +1,11 @@
+import collections
+from abc import ABCMeta
+
 import numpy as np
-import scipy as sp
+from sklearn.externals.six import with_metaclass
 from sklearn.model_selection._split import KFold as _KFold
 from sklearn.model_selection._split import ShuffleSplit as _ShuffleSplit
-from sklearn.model_selection._split import (_BaseKFold,
-                                            BaseCrossValidator, _validate_shuffle_split, BaseShuffleSplit)
-from sklearn.utils.validation import _num_samples
 from sklearn.utils import check_random_state
-from abc import ABCMeta, abstractmethod
-from sklearn.externals.six import with_metaclass
-import collections
 
 
 def exponential_split(xmin, xmax, n=5):

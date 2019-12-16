@@ -1,12 +1,10 @@
 #!/usr/bin/python3
 
-import numpy as np
 import argparse
-import matplotlib.pyplot as plt
-from matplotlib import cm
+
+from asaplib.io import str2bool
 from asaplib.pca import kpca
 from asaplib.plot import *
-from asaplib.io import str2bool
 from ase.io import read, write
 
 

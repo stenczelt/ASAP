@@ -2,9 +2,10 @@
 
 import argparse
 import os
-from ase.io import read, write
-from asaplib.compressor import fps
+
 import numpy as np
+from asaplib.compressor import fps
+from ase.io import read, write
 
 
 def main(fxyz, fy, prefix, nkeep, algorithm, fmat):

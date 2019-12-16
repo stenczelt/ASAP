@@ -1,5 +1,6 @@
-import numpy as np
 from collections import Counter
+
+import numpy as np
 
 
 def output_cluster(prefix, labels, dicttags, tags):

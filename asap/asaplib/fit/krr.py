@@ -1,5 +1,6 @@
-from .base import RegressorBase
 import numpy as np
+
+from .base import RegressorBase
 
 """
 adapted from Felix Musil's ml_tools

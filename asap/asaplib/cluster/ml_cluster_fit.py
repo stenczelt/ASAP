@@ -2,12 +2,12 @@
 Something to describe this module
 """
 
-from .ml_cluster_base import *
+import matplotlib.pyplot as plt
+import numpy as np
 from sklearn.cluster import DBSCAN
 from sklearn.metrics import silhouette_score
 
-import matplotlib.pyplot as plt
-import numpy as np
+from .ml_cluster_base import *
 
 """
 density based clustering algorithms
